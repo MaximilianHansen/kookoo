@@ -3,11 +3,11 @@ import React from 'react'
 function Hour({time, hours}) {
     function convertTime(x){
         if( x <= 12 ) { 
-        let newTime = `${x} am`;
+        let newTime = `${x}AM`;
          return(newTime)
          } else {
         x = x-12; 
-        let newTime = `${x} pm`;
+        let newTime = `${x}PM`;
         return(newTime)
         }
     }
@@ -20,8 +20,8 @@ function Hour({time, hours}) {
     };
     
   return (
-    <div className="border-2 border-slate-500 w-1/2 pl-2 pt-1 -mt-[2px]" style={dynamicStyle}>
-    <p className="text-slate-500">{convertTime(time)}</p>
+    <div className="border-2 border-slate-400 w-full pl-2 pt-1 -mt-[2px]" style={dynamicStyle}>
+    <p className="text-slate-300 ">{convertTime(time)}</p>
     </div>
   )
 }

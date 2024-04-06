@@ -15,7 +15,7 @@ function Event({x, hours , startTime}) {
     let marginTop = 0-((eventStartTime.getHours() - startTime) * 2)
     let durationModifier = eventDurationHours * 2;
 
-    console.log(marginTop)
+    console.log(divSize)
    
     
     const dynamicStyle = {
@@ -49,7 +49,7 @@ function Event({x, hours , startTime}) {
     }
 
   return (
-    <div className="absolute bg-blue-400 rounded-xl w-1/4 text-white p-2" style={dynamicStyle}>
+    <div className="absolute bg-blue-400 rounded-xl w-3/4 text-white p-2" style={dynamicStyle}>
         <p className="w-full font-bold">Party Time</p>
         <p className="w-full">({convertTime(eventStartTime.getHours())}:{padWithZero(eventEndMin)}{addExt(eventStartTime.getHours())} to {convertTime(eventEndTime.getHours())}:{padWithZero(eventEndMin)}{addExt(eventEndTime.getHours())})</p>
     </div>
