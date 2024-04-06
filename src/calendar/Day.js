@@ -15,7 +15,7 @@ function Day({numberDate,dayOfTheWeek}) {
 
   return (
    
-        <div className="App h-[150vh] w-full flex flex-col items-center mt-2 relative">
+        <div className="App h-[150vh] w-full flex flex-col items-center mt-2 -mr-[2px] relative">
             {hourBlocks}
             <Event x={events[0]} hours={hours} startTime={startTime} />
         </div>
