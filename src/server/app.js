@@ -22,11 +22,14 @@ const User = mongoose.model('User', userSchema);
 var session = require('express-session');
 
 app.use(session({
-  secret: 'secret', // Use a more secure secret in production
+  secret:process.env.secret,
   resave: false,
   saveUninitialized: true,
-}));
-
+  store: MongoStore.create({mongoUrl: 'mongodb://localhost:27017/passdownLog'}),
+  cookie: {
+    maxAge: 1000 * 60 * 60 * 24
+  }
+}))
 app.use(passport.initialize());
 app.use(passport.session());
 
