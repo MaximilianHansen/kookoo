@@ -19,6 +19,18 @@ async function main() {
 
 const User = mongoose.model('User', userSchema);
 
+var session = require('express-session');
+
+app.use(session({
+  secret: 'secret', // Use a more secure secret in production
+  resave: false,
+  saveUninitialized: true,
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+
 app.get('/', (req,res)=>{
     res.send('hello world!')
 })
@@ -58,6 +70,16 @@ app.get( '/auth/google/callback',
 app.get('/auth/google/success', (req, res) => {
   res.send("logged in", req.body)
 })
+
+passport.serializeUser(function(user, done) {
+  done(null, user.id);
+});
+
+passport.deserializeUser(function(id, done) {
+  User.findById(id, function(err, user) {
+    done(err, user);
+  });
+});
 
 
 app.listen(port, ()=> {console.log(`running on ${port}`)})
