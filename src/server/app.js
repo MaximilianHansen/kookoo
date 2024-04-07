@@ -80,7 +80,7 @@ app.get('/auth/google/success', (req, res) => {
 })
 
 passport.serializeUser(function(user, done) {
-  done(null, user.googleId);
+  done(null, user);
 });
 
 passport.deserializeUser((userId,done)=>{
