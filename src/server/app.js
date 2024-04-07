@@ -48,8 +48,12 @@ passport.use(new GoogleStrategy({
       let user = await User.findOne({ googleId: profile.id });
       if (!user) {
         user = await User.create({ googleId: profile.id });
+        return console.log("not a user")
       }
-      return done(null, user);
+      console.log("user found!");
+      done(null, user);
+      return 
+      
     } catch (err) {
       return done(err);
     }
