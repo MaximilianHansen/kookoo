@@ -72,7 +72,7 @@ app.get( '/auth/google/callback',
 }));
 
 app.get('/auth/google/success', (req, res) => {
-  res.send("logged in", req.body)
+  res.send("logged in")
 })
 
 passport.serializeUser(function(user, done) {
