@@ -5,6 +5,8 @@ var app = express()
 const port = 3001
 const mongoose = require('mongoose');
 
+const MongoStore = require('connect-mongo');
+
 const userSchema = new mongoose.Schema({
   googleId: String,
 });
