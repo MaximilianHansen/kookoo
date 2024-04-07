@@ -30,7 +30,9 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use((req,res)=> {console.log(req.session)})
+app.use((req,res, next)=> {console.log(req.session); next()}
+
+)
 
 
 app.get('/', (req,res)=>{
