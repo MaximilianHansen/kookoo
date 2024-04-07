@@ -79,11 +79,13 @@ passport.serializeUser(function(user, done) {
   done(null, user.id);
 });
 
-passport.deserializeUser(function(id, done) {
-  User.findById(id, function(err, user) {
-    done(err, user);
-  });
-});
+passport.deserializeUser((userId,done)=>{
+  User.findById(userId)
+  .then((user)=>{
+      done(null,user);
+  })
+  .catch(err=> done(err))
+})
 
 
 app.listen(port, ()=> {console.log(`running on ${port}`)})
