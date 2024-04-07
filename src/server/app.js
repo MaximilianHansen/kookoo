@@ -6,6 +6,9 @@ var app = express()
 const port = 3001
 const mongoose = require('mongoose');
 
+const today = new Date();
+const rfc3339FormattedDate = today.toISOString();
+
 
 
 const userSchema = new mongoose.Schema({
@@ -63,7 +66,7 @@ passport.use(new GoogleStrategy({
       }
       console.log("user found!");
        // Your obtained access token
-const url = 'https://www.googleapis.com/calendar/v3/calendars/primary/events'; // Google Calendar API endpoint
+const url = 'https://www.googleapis.com/calendar/v3/calendars/primary/events?timeMin={rfc3339FormattedDate}'; // Google Calendar API endpoint
 
 fetch(url, {
   method: 'GET',
