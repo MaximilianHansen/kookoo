@@ -62,6 +62,29 @@ passport.use(new GoogleStrategy({
         return console.log("not a user")
       }
       console.log("user found!");
+       // Your obtained access token
+const url = 'https://www.googleapis.com/calendar/v3/calendars/primary/events'; // Google Calendar API endpoint
+
+fetch(url, {
+  method: 'GET',
+  headers: {
+    'Authorization': `Bearer ${accessToken}`, // Bearer authentication scheme
+    'Accept': 'application/json' // Optional based on API
+  }
+})
+.then(response => {
+  if (response.ok) {
+    return response.json(); // Parse JSON body
+  }
+  throw new Error('Network response was not ok.');
+})
+.then(data => {
+  console.log(data); // Process the data
+})
+.catch(error => {
+  console.error('There was a problem with your fetch operation:', error);
+});
+
       done(null, user);
       return 
       
