@@ -86,7 +86,8 @@ app.get('/auth/google/success', (req, res) => {
 })
 
 passport.serializeUser(function(user, done) {
-  done(null, user);
+  console.log(user, "this is serialize user")
+  done(null, user.id);
 });
 
 passport.deserializeUser((userId,done)=>{
