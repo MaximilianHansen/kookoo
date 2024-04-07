@@ -51,7 +51,8 @@ passport.use(new GoogleStrategy({
     clientID:     '1049417195222-5sra3k5h6muam47ufdkjsrg4v5uil6sg.apps.googleusercontent.com',
     clientSecret: "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",
     callbackURL: "http://maxhansen.co:3001/auth/google/callback",
-    passReqToCallback   : true
+    passReqToCallback   : true,
+    scope: ['email', 'profile', 'https://www.googleapis.com/auth/calendar']
   },
   async function(request, accessToken, refreshToken, profile, done) {
     try {
@@ -71,8 +72,7 @@ passport.use(new GoogleStrategy({
 ));
 
 app.get('/auth/google',
-  passport.authenticate('google', { scope:
-      [ 'email', 'profile' ] }
+  passport.authenticate('google'
 ));
 
 app.get( '/auth/google/callback',
