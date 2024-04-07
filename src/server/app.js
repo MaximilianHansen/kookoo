@@ -1,11 +1,12 @@
 var GoogleStrategy = require( 'passport-google-oauth2' ).Strategy;
 var express = require('express');
+const MongoStore = require('connect-mongo');
 var passport = require('passport');
 var app = express()
 const port = 3001
 const mongoose = require('mongoose');
 
-const MongoStore = require('connect-mongo');
+
 
 const userSchema = new mongoose.Schema({
   googleId: String,
@@ -24,7 +25,7 @@ const User = mongoose.model('User', userSchema);
 var session = require('express-session');
 
 app.use(session({
-  secret:process.env.secret,
+  secret:'secret',
   resave: false,
   saveUninitialized: true,
   store: MongoStore.create({mongoUrl: 'mongodb://localhost:27017/passdownLog'}),
