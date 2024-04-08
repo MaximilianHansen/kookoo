@@ -63,7 +63,7 @@ app.get('/', (req,res)=>{
 
 app.get('/calendars', (req,res)=>{
   const calendar = google.calendar({version:'v3', auth:oauth2Client});
-  calendar.calendarList.list({},(err,response)=>{
+  calendar.calendarList.list({calendarId:"primary",timeMin:rfc3339FormattedDate},(err,response)=>{
     if(err){
       console.error("couldnt get calendars",err)
       res.end('error');
