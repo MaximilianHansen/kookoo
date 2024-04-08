@@ -9,7 +9,7 @@ const {google} = require('googleapis');
 const { FaRegObjectUngroup } = require('react-icons/fa');
 const today = new Date();
 const rfc3339FormattedDate = today.toISOString();
-const calendar = google.calendar({version: 'v3', auth: oauth2Client});
+
 
 const userSchema = new mongoose.Schema({
   googleId: String,
@@ -30,7 +30,7 @@ const clientSecret = "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";
 const redirectUri = "http://maxhansen.co:3001/auth/google/callback";
 
 const oauth2Client = new google.auth.OAuth2(clientID, clientSecret, redirectUri);
-
+const calendar = google.calendar('v3');
 const scopes = ['https://www.googleapis.com/auth/calendar'];
 app.get('/login',(req,res)=>{
   const url = oauth2Client.generateAuthUrl({
