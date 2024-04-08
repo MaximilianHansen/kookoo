@@ -43,7 +43,7 @@ res.redirect(url)
 // Redirect the user to this URL
 
 app.get('/auth/google/callback', async (req, res) => {
-  const {code} = req.query.code;
+  const code = req.query.code;
   oauth2Client.getToken(code,(err,tokens)=> {
     if(err){
       console.error('couldnt get token', err);
