@@ -31,15 +31,18 @@ const redirectUri = "http://maxhansen.co:3001/auth/google/callback";
 const oauth2Client = new google.auth.OAuth2(clientID, clientSecret, redirectUri);
 
 const scopes = ['https://www.googleapis.com/auth/calendar'];
-
-const url = oauth2Client.generateAuthUrl({
+app.get('/login',(req,res)=>{
+  const url = oauth2Client.generateAuthUrl({
   access_type: 'offline', // Will return a refresh token
   scope: scopes
 });
+res.redirect(url)
+})
+
 
 // Redirect the user to this URL
 
-app.get('/oauth2callback', async (req, res) => {
+app.get('/auth/google/callback', async (req, res) => {
   const {code} = req.query;
   const {tokens} = await oauth2Client.getToken(code);
   oauth2Client.setCredentials(tokens);
