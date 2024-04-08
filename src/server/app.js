@@ -63,7 +63,7 @@ app.get('/', (req,res)=>{
 
 app.get('/calendars', (req,res)=>{
   const calendar = google.calendar({version:'v3', auth:oauth2Client});
-  calendar.calendarList.list({calendarId:"primary",timeMin:rfc3339FormattedDate},(err,response)=>{
+  calendar.calendarList.list({},(err,response)=>{
     if(err){
       console.error("couldnt get calendars",err)
       res.end('error');
@@ -76,7 +76,7 @@ app.get('/calendars', (req,res)=>{
 
 app.get('/events', (req,res)=> {
   const calendar = google.calendar({version:'v3', auth:oauth2Client});
-  calendar.events.list({},(err,response)=> {
+  calendar.events.list({calendarId:"primary",timeMin:rfc3339FormattedDate},(err,response)=> {
     if(err){
       console.error("couldnt get calendars",err)
       res.end('error');
