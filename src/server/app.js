@@ -54,6 +54,22 @@ app.get('/', (req,res)=>{
     res.send('hello world!')
 })
 
+app.get('/calendar', (req,res)=>{
+async function getCalendarEvents() {
+  const calendar = google.calendar({version: 'v3', auth: oauth2Client});
+  const res = await calendar.events.list({
+    calendarId: 'primary',
+    timeMin: (new Date()).toISOString(),
+    maxResults: 10,
+    singleEvents: true,
+    orderBy: 'startTime',
+  });
+  return res.data.items;
+}
+getCalendarEvents();
+})
+
+
 
 
 app.listen(port, ()=> {console.log(`running on ${port}`)})
