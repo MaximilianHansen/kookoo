@@ -5,7 +5,7 @@ var passport = require('passport');
 var app = express()
 const port = 3001
 const mongoose = require('mongoose');
-const {google} = require('google-auth-library');
+const {google} = require('googleapis');
 const today = new Date();
 const rfc3339FormattedDate = today.toISOString();
 
