@@ -9,7 +9,7 @@ const {google} = require('googleapis');
 const { FaRegObjectUngroup } = require('react-icons/fa');
 const today = new Date();
 const rfc3339FormattedDate = today.toISOString();
-
+const calendar = google.calendar({version: 'v3', auth: oauth2Client});
 
 const userSchema = new mongoose.Schema({
   googleId: String,
@@ -62,7 +62,7 @@ app.get('/', (req,res)=>{
 })
 
 app.get('/calendars', (req,res)=>{
-  const calendar = google.calendar({version: 'v3', auth: oauth2Client});
+  
   calendar.calendarList.list({},(err,response)=>{
     if(err){
       console.error("couldnt get calendars",err)
@@ -72,6 +72,18 @@ app.get('/calendars', (req,res)=>{
     const calendars = response.data.items;
     res.json(calendars);
   });
+})
+
+app.get('/events', (req,res)=> {
+  calendar.events.list({},(err,response)=> {
+    if(err){
+      console.error("couldnt get calendars",err)
+      res.end('error');
+      return;
+    }
+    const events = response.data.items;
+    res.json(events);
+  })
 })
 
 
