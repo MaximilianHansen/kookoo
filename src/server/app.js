@@ -43,11 +43,17 @@ res.redirect(url)
 // Redirect the user to this URL
 
 app.get('/auth/google/callback', async (req, res) => {
-  const {code} = req.query;
-  const {tokens} = await oauth2Client.getToken(code);
-  oauth2Client.setCredentials(tokens);
+  const {code} = req.query.code;
+  oauth2Client.getToken(code,(err,tokens)=> {
+    if(err){
+      console.error('couldnt get token', err);
+      res.send('Error')
+      return;
+    }
+    oauth2Client.setCredentials(tokens);
+    res.send('logged in baby')
+  })
   // Save these tokens in your database
-  res.send('Authentication successful! You can close this window.');
 });
 
 app.get('/', (req,res)=>{
