@@ -30,7 +30,7 @@ const clientSecret = "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";
 const redirectUri = "http://maxhansen.co:3001/auth/google/callback";
 
 const oauth2Client = new google.auth.OAuth2(clientID, clientSecret, redirectUri);
-const calendar = google.calendar('v3');
+
 const scopes = ['https://www.googleapis.com/auth/calendar'];
 app.get('/login',(req,res)=>{
   const url = oauth2Client.generateAuthUrl({
@@ -62,7 +62,7 @@ app.get('/', (req,res)=>{
 })
 
 app.get('/calendars', (req,res)=>{
-  
+  const calendar = google.calendar({version:'v3', auth:oauth2Client});
   calendar.calendarList.list({},(err,response)=>{
     if(err){
       console.error("couldnt get calendars",err)
@@ -75,6 +75,7 @@ app.get('/calendars', (req,res)=>{
 })
 
 app.get('/events', (req,res)=> {
+  const calendar = google.calendar({version:'v3', auth:oauth2Client});
   calendar.events.list({},(err,response)=> {
     if(err){
       console.error("couldnt get calendars",err)
