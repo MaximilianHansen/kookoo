@@ -6,6 +6,7 @@ var app = express()
 const port = 3001
 const mongoose = require('mongoose');
 const {google} = require('googleapis');
+const { FaRegObjectUngroup } = require('react-icons/fa');
 const today = new Date();
 const rfc3339FormattedDate = today.toISOString();
 
@@ -60,19 +61,17 @@ app.get('/', (req,res)=>{
     res.send('hello world!')
 })
 
-app.get('/calendar', (req,res)=>{
-async function getCalendarEvents() {
+app.get('/calendars', (req,res)=>{
   const calendar = google.calendar({version: 'v3', auth: oauth2Client});
-  const res = await calendar.events.list({
-    calendarId: 'primary',
-    timeMin: (new Date()).toISOString(),
-    maxResults: 10,
-    singleEvents: true,
-    orderBy: 'startTime',
+  calendar.calendarList.list({},(err,response)=>{
+    if(err){
+      console.error("couldnt get calendars",err)
+      res.end('error');
+      return;
+    }
+    const calendars = response.data.items;
+    res.json(calendars);
   });
-  return res.data.items;
-}
-getCalendarEvents();
 })
 
 
